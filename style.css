@@ -1,10 +1,7 @@
 body{
-    background-image: url("/img3.jpg");
-    display:flex;
+    background-image: url("bg.jpg");display:flex;
     flex-wrap: wrap;
     padding: 4px;
-    width:100vw;
-    height:100vh;
     background-attachment:fixed;
     background-position: center;
     background-repeat:no-repeat;
@@ -18,17 +15,15 @@ body{
 }
 
 .calender-cell{
-    /* margin-top: 40px; */
-    width: 10vw;
-    height: 10vh;
+
+    margin-top: 40px;
+    height: 100px;
     cursor: pointer;
-    
 }
 .calender{
     font-size: 30px;
-    font-weight: bold;
-    border: 2px solid rgb(228, 214, 133);
-    border-radius: 20px;
+    border: 2px solid red;
+    border-radius: 10px;
 }
 .padding-bottom{
     padding-bottom: 20px;
@@ -37,19 +32,21 @@ body{
     color: whitesmoke !important;
 }
 .calender-day-cell{
-    height:10vh;
-    text-align: center;
+    height:100px;
     color: black;
-    position: fixed;
+    font-size: 30px;
+    padding-top: 5px;
     padding-left:1px !important;
     padding-right:1px !important;
 }
 .calender-day-cell-heading{
+    font-size: 30px;
     background-color: blue;
     border-radius: 10px;
     border-spacing: 20px;
 }
 .calender-day-cell,.calender-month{
+    font-size: 20px;
     border-bottom:1px solid black;
 }
 .calender-day-cell-holiday{
@@ -66,17 +63,16 @@ body{
     width:14.857%
 }
 .calender-holiday{
-    font-size: 10.5px;
+    font-size: 10px;
     
 }
 .indian-holiday{
-    border-radius: 19px;
-    /* font-size:10px ; */
-    background-color:rgb(180, 147, 185);
+    border-radius: 15px;
+    background-color:rgb(55, 221, 111);
 }
 .dallas-holiday{
     border-radius: 15px;
-    background-color:rgb(134, 191, 206);
+    background-color:rgb(31, 221, 246);
 }
 .legend{
     margin-top: 10px;
@@ -94,3 +90,14 @@ body{
     padding-right: 50px;
     padding-top: 10px;
 }
+
+@media screen and (max-width: 1000px) {
+  .calender-day-cell{
+    height:300px;
+    color: black;
+    font-size: 50px;
+    padding-top: 5px;
+    padding-left:1px !important;
+    padding-right:1px !important;
+}
+  }
