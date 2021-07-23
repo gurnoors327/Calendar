@@ -1,4 +1,4 @@
-const MONTHS=["JAN","FEB","MAR","APR","MAY","JUN","JULY","AUG","SEP","OCT","NOV","DEC"];
+const MONTHS=["JAN","FEB","MAR","APR","MAY","JUN","JLY","AUG","SEP","OCT","NOV","DEC"];
 const Month={
     JAN:0,
     FEB:1,
@@ -6,7 +6,7 @@ const Month={
     APR:3,
     MAY:4,
     JUN:5,
-    JULY:6,
+    JLY:6,
     AUG:7,
     SEP:8,
     OCT:9,
@@ -127,27 +127,21 @@ var EventCalender=
         //current date
         document.getElementById("curr_date").innerHTML = "Today's date: " + new Date().toLocaleDateString();
 
-        // localStorage variable used to store information.(konsa month store kiya tha)
-        //in this variable its value is retained.
+        
         if(localStorage.getItem("selectedMonthId")==null)
         {
-            //agar koi month sel nai kia to show krdo all months
             document.getElementById('divEventViewer').innerHTML=this.GetMonthsHtml();
         }
         else{
-            //otherwise show krdo selected month.
             document.getElementById('divEventViewer').innerHTML=this.GetMonthHtml();
         }
     },
-    // jaise hee for e.g mene jan par click kra to ye function call hogya.
     selectMonth(monthId){
         var year=document.getElementById("selectYears").value;
         localStorage.setItem("selectedMonthId", monthId);
         localStorage.setItem("selectedYear", year);
-        // ab jab init call hoga to else wala chale ga (coz this time we selected a month.)
         this.Init();    
     },
-    //local storage ko hamne remove kr diya ab phir init null wale case ko hee call krega.
     Reset(){
         localStorage.removeItem("selectedMonthId");
         localStorage.removeItem("selectedYear");
@@ -174,7 +168,7 @@ var EventCalender=
         var year=localStorage.getItem("selectedYear");
 
         var currentMonth=new Date('2021',month,0)
-        monthHtml+='<div class="row"    >\
+        monthHtml+='<div style="min-width: 1700px;min-height:800px;max-height:1000px" class="row"    >\
                         <div class="my-3 container" style="color:peach;font-size:20px">\
                             Month:'+MONTHS[month]+'\
                             Year:'+year+'\
@@ -183,23 +177,18 @@ var EventCalender=
                         </div>\
                         <div class="col-md-12 my-3" style="color:white">\
                             <div class="row text-center">'
-                            //yaha sat .. .. . .. .. . Fri
                                 for(var day=0;day<DAYOFMONTH.length;day++){
                                     monthHtml+='<div class="col-md-1 calender-day-cell-heading">'+DAYOFMONTH[day]+'</div> '
                                 }
                                 monthHtml+='\
                             </div>\
                         </div>'
-                        // niche 1 2 3 4 5....
         monthHtml+='<div class="col-md-12">'
-        // niche Last Date(e.g 31 ,30 ,28) of a month
-        // new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, dayOfDate).getDate()
          for(var dayOfDate=1;dayOfDate<=new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, dayOfDate).getDate();){
              monthHtml+='<div class="row">'
              //niche wala sat ..   fri
             for(var day=0;day<DAYOFMONTH.length;day++)
             {
-                //mon ==mon then print else empty (ek tarah see hame pichle month ke din nai krvaye ge print)
                  if(day==new Date(year,month,dayOfDate).getDay()){
                     var holiday=HOLIDAYS.find(e=>e.Day==dayOfDate&&e.Month==month);
 
@@ -220,17 +209,16 @@ var EventCalender=
         }
         monthHtml+='</div> '
         monthHtml+='<div class="row">\
-        <div class="col-md-12">\
+        <div class="col-md-12" style="font-size:30px;">\
         <span class="legend-row"><span class="legend indian-holiday"></span><span class="legend-text"> Delhi.</span></span>\
         <span class="legend-row"><span class="legend dallas-holiday"></span><span class="legend-text"> Dallas.</span></span>\
-        <button type="button" onclick="EventCalender.Reset()" class="btn btn-danger text-light " style="border-radius:5px;width:max-content;">Go Back</button>\
+        <button type="button" onclick="EventCalender.Reset()" class="btn btn-danger text-light " style="border-radius:5px;width:max-content;font-size:20px">Go Back</button>\
        </div>\
     </div>';
         return monthHtml;
     },
     GetMonthsHtml(){
-        var monthListHtml='';//html generate krta hh ye jo ham div mein add krte hh
-//yaha bootstrap bhi use kra hh to make it responsive.
+        var monthListHtml='';
         for(var month=0;month<MONTHS.length;month++){
             monthListHtml+="<div class='col-lg-4 col-md-4 col-sm-6 col-xm-6 calender-cell' \
             onclick='EventCalender.selectMonth("+month+")'>\
@@ -254,7 +242,6 @@ var EventCalender=
         </div>";
         return monthsHtml;
     },
-    // adding items to drop down baki drop down hamne phele hee bna liya tha using select.
     BindYears(){
         var yearHtml=''
         for(var year=new Date().getFullYear();year>=START_YEAR;year--){
